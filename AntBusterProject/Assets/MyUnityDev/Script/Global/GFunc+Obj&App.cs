@@ -8,6 +8,17 @@ using UnityEngine.SceneManagement;
 
 public static partial class GFunc
 {
+    public const string GAMEOBJ_ROOT_NAME = "GameObjs";
+    public const string TileListObj_NAME = "TowerTile";
+
+
+
+    //! 오브젝트의 앵커 포지션을 연산하는 함수
+    public static void AddAnchoredPos(this GameObject obj_, Vector2 position2D)
+    {
+        obj_.Rectran().anchoredPosition += position2D;
+    }   //AddAnchoredPos()
+
     public static Vector3 RectranLeftTop(this GameObject obj)
     {
         Vector3 Result = default;
