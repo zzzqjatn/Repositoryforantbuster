@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using TMPro.EditorUtilities;
 using UnityEngine;
 
-
 using UnityEngine.UI;
 
 public class TowerTile : MonoBehaviour
 {
-    public int TILEX;
-    public int TILEY;
-    public float TILE_SIZE;  //정사각형
+    private int TILEX;
+    private int TILEY;
+    private float TILE_SIZE;  //정사각형
 
     private List<Tile> researchTiles;
+
+    //private List<GameObject> GAtiles;
     
     public GameObject prefabObj;    // 테스트용 프리펩
     public GameObject prefabTower;
+
+    private GameObject TileTempObj;
+    private GameObject TowerParent;
 
     void Start()
     {
@@ -24,21 +28,29 @@ public class TowerTile : MonoBehaviour
         TILE_SIZE = TileSetting.TILE_SIZE;
 
         researchTiles = new List<Tile>();
+        //GAtiles = new List<GameObject>();
+
+        TileTempObj = gameObject.FindChildObj("TileTemp");
+
+        TowerParent = gameObject.FindChildObj("TowerSet");
 
         float StartPosX = 0.0f - gameObject.RectranSize().x / 2;
         float StartPosY = 0.0f + gameObject.RectranSize().y / 2;
 
-        Tile tempTile = new Tile();
         for (int i = 0; i < TILEY; i++)
         {
             for(int j = 0; j < TILEX; j++)
             {
-                //GameObject forTemp = Instantiate(prefabObj, gameObject.transform);
+                //GameObject forTemp = Instantiate(prefabObj, TileTempObj.transform);
                 //if ((j + (TILEX * i)) % 2 == 0) { forTemp.GetComponent<Image>().color = Color.white; }
                 //else { forTemp.GetComponent<Image>().color = Color.black; }
                 //forTemp.RectranLocalPos(new Vector3((StartPosX + TILE_SIZE / 2) + TILE_SIZE * j,
                 //                                    (StartPosY - TILE_SIZE / 2) - TILE_SIZE * i, 0.0f));
+                //forTemp.FindChildObj("indexTxt").SetText(string.Format($"{j + (TILEX * i)}"));
+                //forTemp.name = string.Format($"TILE_{j + (TILEX * i)}");
+                //GAtiles.Add(forTemp);
 
+                Tile tempTile = new Tile();
                 tempTile.TowerInit(j + (TILEX * i),
                     (StartPosX + TILE_SIZE / 2) + TILE_SIZE * j,
                     (StartPosY - TILE_SIZE / 2) - TILE_SIZE * i, 2);
@@ -46,13 +58,14 @@ public class TowerTile : MonoBehaviour
                 researchTiles.Add(tempTile);
             }
         }
+
+        TileTempObj.SetActive(false);
     }
 
     void Update()
     {
         
     }
-
     public List<Tile> GetTileList()
     {
         if(researchTiles == null || researchTiles == default)
@@ -62,24 +75,26 @@ public class TowerTile : MonoBehaviour
         return researchTiles;
     }
 
-    public Tile TowerBuildTime(Vector3 MousePos)
+    public void TowerBuild(Vector2 MousePos)
     {
         Tile TempTile = default;
         //4방향으로 나눠서 찾기
-        TempTile = FindSelectTile(TILEX / 2, TILEY / 2, MousePos.x, MousePos.y);
+        TempTile = FindSelectTile(MousePos.x, MousePos.y, TILEX / 2, TILEY / 2, TILEX, TILEY);
 
         if (TempTile == null || TempTile == default) { /* Pass */}
         else
         {
-            return TempTile;
+            GameObject towerTemp = Instantiate(prefabTower, TowerParent.transform);
+            Vector2 TempPos = researchTiles[TempTile.GetNum()].GetPos();
+            towerTemp.RectranLocalPos(new Vector3(TempPos.x, TempPos.y, 0.0f));
         }
-        return TempTile;
     }
 
-    public Tile FindSelectTile(int numX, int numY, float fixPosX, float fixPosY)
+    //이진트리
+    public Tile FindSelectTile(float fixPosX, float fixPosY, int numX, int numY, int MaxNumX, int MaxNumY)
     {
-        int TargetNumX = -1;
-        int TargetNumY = -1;
+        int TargetNumX = default;
+        int TargetNumY = default;
 
         bool isXright = false;
         bool isYright = false;
@@ -91,11 +106,11 @@ public class TowerTile : MonoBehaviour
         //좌우 탐색
         if (fixPosX < (Target.GetPos().x - TILE_SIZE / 2))   // 목표가 좌측에 있다는 뜻
         {
-            TargetNumX = numX / 2;
+            TargetNumX = numX - (MaxNumX - numX) / 2;
         }
         else if ((Target.GetPos().x + TILE_SIZE / 2) < fixPosX) // 목표가 우측에 있다는 뜻
         {
-            TargetNumX = numX + numX / 2;
+            TargetNumX = numX + (MaxNumX - numX) / 2;
         }
         else // 목표가 범위 안에 있다는 뜻
         {
@@ -103,15 +118,15 @@ public class TowerTile : MonoBehaviour
             isXright = true;
         }
 
-        Target = researchTiles[numY];
+        Target = researchTiles[TILEX * numY];
         //상하
         if (fixPosY < (Target.GetPos().y - TILE_SIZE / 2))   // 목표가 아래쪽에 있다는 뜻
         {
-            TargetNumY = numY + numY / 2;
+            TargetNumY = numY - (MaxNumY - numY) / 2;
         }
         else if ((Target.GetPos().y + TILE_SIZE / 2) < fixPosY) // 목표가 위쪽에 있다는 뜻
         {
-            TargetNumY = numY / 2;
+            TargetNumY = numY + (MaxNumY - numY) / 2;
         }
         else // 목표가 범위 안에 있다는 뜻
         {
@@ -126,8 +141,9 @@ public class TowerTile : MonoBehaviour
         }
         else
         {
-            Result = FindSelectTile(TargetNumX, TargetNumY, fixPosX, fixPosY);
+            Result = FindSelectTile(fixPosX, fixPosY, TargetNumX, TargetNumY, numX, numY);
             if (Result == null || Result == default) { /* Pass */ }
+            else { return Result; }
         }
         return Result;
     }
@@ -160,6 +176,8 @@ public class Tile
     {
         return new Vector2(PosX, PosY);
     }
+
+    public int GetNum() { return Number; }
 }
 
 public class Tower

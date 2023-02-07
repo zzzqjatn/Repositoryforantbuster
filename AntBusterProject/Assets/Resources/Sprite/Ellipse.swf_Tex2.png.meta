@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -115,7 +115,364 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_1
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 422
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2ab59cd5c346b649904f0eb40af95a8
+      internalID: 798806587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_2
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 333
+        width: 78
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e7dce3a1aa07f74b9e4848bc9a7a646
+      internalID: -955427228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_3
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 237
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c2e7d597bf0150469e8caf97680f67a
+      internalID: 1015465562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_4
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 237
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2777cdaeb0d9fd04682b5e3c2af8804d
+      internalID: -592943507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_5
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 237
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dda5ee792d3af4348b042c5183430eec
+      internalID: -2094358829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_6
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 237
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc12553edd2295a47917b7b6f3beebbb
+      internalID: -929357338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_7
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 237
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ed5624a6d4a7cc40a6cf1f87ce00f5c
+      internalID: -677426315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_8
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 142
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a754cfbd6e1b3441abe71d9b847ff45
+      internalID: 1017631032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_9
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 142
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 301bf0d04d8d19b45a1292b27453bdd6
+      internalID: -1592909811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_10
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 142
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d52bd5c15b392894da9912b583a8606b
+      internalID: -957253819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_11
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 142
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6445ba0bb5f364e46a5ea2b83e3a4853
+      internalID: 1303241960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_12
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 144
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3079c87a6f9c4ee42a707b623c019c53
+      internalID: 1816497520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_13
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 47
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24a87d3b97f4a7646b410858d95d1ba8
+      internalID: -583957728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_14
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 47
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8efe843941853ba4d8b20aa6016a9466
+      internalID: 1227070397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_15
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 47
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4eb5dccaddc759b43bd914b1a6135c38
+      internalID: -235020636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_16
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 47
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c380ebb7c2e5ba8478c587b701004f02
+      internalID: 1859229803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ellipse.swf_Tex2_17
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 47
+        width: 87
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57e0ba44ff4ef0d479841ca6fa7a7aef
+      internalID: -232996094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -126,7 +483,25 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Ellipse.swf_Tex2_2: -955427228
+      Ellipse.swf_Tex2_17: -232996094
+      Ellipse.swf_Tex2_4: -592943507
+      Ellipse.swf_Tex2_15: -235020636
+      Ellipse.swf_Tex2_9: -1592909811
+      Ellipse.swf_Tex2_0: 39513340
+      Ellipse.swf_Tex2_5: -2094358829
+      Ellipse.swf_Tex2_13: -583957728
+      Ellipse.swf_Tex2_3: 1015465562
+      Ellipse.swf_Tex2_16: 1859229803
+      Ellipse.swf_Tex2_8: 1017631032
+      Ellipse.swf_Tex2_11: 1303241960
+      Ellipse.swf_Tex2_7: -677426315
+      Ellipse.swf_Tex2_6: -929357338
+      Ellipse.swf_Tex2_14: 1227070397
+      Ellipse.swf_Tex2_12: 1816497520
+      Ellipse.swf_Tex2_10: -957253819
+      Ellipse.swf_Tex2_1: 798806587
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

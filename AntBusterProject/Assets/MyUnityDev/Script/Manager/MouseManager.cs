@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,75 +8,73 @@ public class MouseManager : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     IDragHandler
 {
     /*
-     *  IsType 상태
-     *  0 : None
-     *  1 : 포탑 설치 on
-     *  
-     */
+    *  IsType 상태
+    *  0 : None
+    *  1 : 포탑 설치 on
+    */
 
+    private GameObject BgObj;
     private Canvas mainCanvas;
+
+    private TowerTile towerTile_;
+
     private int IsType;
-    public bool isClicked;
+    private bool isClicked;
 
     void Start()
     {
+        BgObj = GFunc.FindRootObj(GFunc.GAMEOBJ_ROOT_NAME).FindChildObj("BgObjs");
         mainCanvas = GFunc.FindRootObj(GFunc.GAMEOBJ_ROOT_NAME).GetComponent<Canvas>();
-        IsType = 1; //강제값
 
+        towerTile_ = gameObject.GetComponent<TowerTile>();
+
+        IsType = 1; //강제값
         isClicked = false;
     }
 
     void Update()
     {
-        if(isClicked)
-        {
-            Debug.Log("들어오나?");
-        }
+        
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("들어오나? OnPointerDown");
         isClicked = true;
-        if(IsType == 1)
+        if (IsType == 1)
         {
-            //gameObject.AddAnchoredPos(eventData.delta / mainCanvas.scaleFactor);
+            float MouseX = eventData.position.x / mainCanvas.scaleFactor;
+            float MouseY = eventData.position.y / mainCanvas.scaleFactor;
+            
+            //Debug.Log($" 현재 마우스 위치 확인 : ({MouseX} , {MouseY})");
 
-            Debug.Log($"마우스의 포지션을 확인 : ({eventData.position.x} , {eventData.position.y})");
+            float offsetX = (BgObj.RectranSize().x - gameObject.RectranSize().x) / 2;
+            float offsetY = (BgObj.RectranSize().y - gameObject.RectranSize().y);
+
+            float PosOffsetX = gameObject.RectranSize().x / 2;
+            float PosOffsetY = gameObject.RectranSize().y / 2;
+
+            float LocalOffsetX = gameObject.RectranLocalPos().x * (-1);
+            float LocalOffsetY = gameObject.RectranLocalPos().y * (-1);
+
+            float RightX = MouseX - (offsetX + PosOffsetX) + LocalOffsetX;
+            float RightY = MouseY - (offsetY + PosOffsetY - 1.5f);
+
+            //Debug.Log($" 마우스 재정의 위치 확인 : ({RightX} , {RightY})");
+
+            towerTile_.TowerBuild(new Vector2(RightX, RightY));
         }
-
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         isClicked = false;
-        Debug.Log("들어오나? OnPointerUp");
-
-        // 여기서 레벨이 가지고 있는 퍼즐 리스트를 순회해서
-        // 가장 가까운 퍼즐을 찾아온다.
-        //PuzzleLvPart closeLvPuzzle =
-        //playLevel.GetCloseSameTypePuzzle(puzzleType, transform.position);
-
-        //if (closeLvPuzzle == null || closeLvPuzzle == default)
-        //{
-        //    return;
-        //}
-
-        //transform.position = closeLvPuzzle.transform.position;
     }
 
-    //! 마우스를 드래그 중 일때 동작하는 함수
     public void OnDrag(PointerEventData eventData)
     {
         if (isClicked == true)
         {
-            Debug.Log("들어오나? OnDrag");
-        }
-        //{
-        //    //gameObject.SetLocalPos(eventData.position.x, eventData.position.y, 0f);
-        //    //gameObject.AddAnchoredPos(eventData.delta / puzzleInitZone.parentCanvas.scaleFactor);
 
-        //    //GFunc.Log($"마우스의 포지션을 확인 : ({eventData.position.x} , {eventData.position.y})");
-        //}   // if: 현재 오브젝트를 선택한 경우
+        }
     }
 }

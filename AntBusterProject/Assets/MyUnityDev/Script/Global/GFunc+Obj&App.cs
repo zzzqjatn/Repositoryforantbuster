@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using UnityEngine;
 
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public static partial class GFunc
 {
@@ -12,12 +13,28 @@ public static partial class GFunc
     public const string TileListObj_NAME = "TowerTile";
 
 
+    public static void SetText(this GameObject obj,string text)
+    {
+        TMP_Text tempTxt = default;
+        tempTxt = obj.GetComponent<TMP_Text>();
+
+        tempTxt.text = text;
+    }
+
+
+    //! 오브젝트의 앵커 포지션을 연산하는 함수
+    public static Vector2 ReturnAnchoredPos(this GameObject obj_, Vector2 position2D)
+    {
+        Vector2 Result = obj_.Rectran().anchoredPosition;
+        Result += position2D;
+        return Result;
+    }
 
     //! 오브젝트의 앵커 포지션을 연산하는 함수
     public static void AddAnchoredPos(this GameObject obj_, Vector2 position2D)
     {
         obj_.Rectran().anchoredPosition += position2D;
-    }   //AddAnchoredPos()
+    }
 
     public static Vector3 RectranLeftTop(this GameObject obj)
     {
