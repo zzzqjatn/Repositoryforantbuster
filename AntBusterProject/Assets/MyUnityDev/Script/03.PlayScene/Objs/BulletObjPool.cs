@@ -1,32 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class BulletObjPool : MonoBehaviour
 {
-    private const int BULLET_MAX = 200;
+    private const int BULLET_MAX = 300;
 
     private GameObject bulletPrefab;
     private List<GameObject> bulletPool;
 
-    private float currenttime;
     private int bulletindex;
-
 
     void Start()
     {
         bulletPool = new List<GameObject>();
         bulletPrefab = gameObject.FindChildObj("Bullet");
-
-        currenttime = 0.0f;
         bulletindex = 0;
 
         for (int i = 0; i < BULLET_MAX; i++)
         {
-            GameObject obj = Instantiate(bulletPrefab,gameObject.transform);
+            GameObject obj = Instantiate(bulletPrefab, gameObject.transform);
             obj.name = string.Format($"Bullet_{i}");
-            obj.RectranLocalPos(new Vector3(-500.0f, -500.0f, 0.0f));
+            obj.RectranLocalPos(new Vector3(-500.0f, -500.0f, 1.0f));
             obj.SetActive(false);
             bulletPool.Add(obj);
         }
@@ -35,21 +31,26 @@ public class BulletObjPool : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
-    public void shotTheTriger(Vector2 pos_,Vector2 dir_, int speed_)
+    public void Setbullet(Vector2 pos_, Vector2 dir_, int speed_, int damage_, int distance_)
     {
-        while (true)
+        for (int i = bulletindex; i < bulletPool.Count; i++)
         {
-            if (bulletPool[bulletindex].activeSelf == false)
+            if (bulletPool[i].activeSelf == false)
             {
                 bulletPool[bulletindex].SetActive(true);
-                bulletPool[bulletindex].GetComponent<Bullet>().bulletFire(pos_, dir_, speed_);
+                bulletPool[bulletindex].GetComponent<Bullet>().bulletFire(pos_, dir_, speed_, damage_, distance_);
+                bulletindex++;
+                if (bulletindex >= bulletPool.Count) bulletindex = 0;
                 break;
             }
-            bulletindex++;
-            if (bulletindex > bulletPool.Count) bulletindex = 0;
+            else
+            {
+                bulletindex++;
+                if (bulletindex >= bulletPool.Count) bulletindex = 0;
+            }
         }
     }
 }

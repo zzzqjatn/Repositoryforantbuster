@@ -17,8 +17,9 @@ public class MouseManager : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private Canvas mainCanvas;
 
     private TowerTile towerTile_;
+    private TowerObjPool towerobjs_;
 
-    private int IsType;
+    public int IsType;
     private bool isClicked;
 
     void Start()
@@ -28,7 +29,11 @@ public class MouseManager : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
         towerTile_ = gameObject.GetComponent<TowerTile>();
 
-        IsType = 1; //강제값
+        GameObject obj = gameObject.FindChildObj("TowerObjPool");
+
+        towerobjs_ = obj.GetComponent<TowerObjPool>();
+
+        IsType = 1;
         isClicked = false;
     }
 
@@ -40,28 +45,32 @@ public class MouseManager : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public void OnPointerDown(PointerEventData eventData)
     {
         isClicked = true;
-        if (IsType == 1)
+
+        float MouseX = eventData.position.x / mainCanvas.scaleFactor;
+        float MouseY = eventData.position.y / mainCanvas.scaleFactor;
+
+        //Debug.Log($" 현재 마우스 위치 확인 : ({MouseX} , {MouseY})");
+
+        float offsetX = (BgObj.RectranSize().x - gameObject.RectranSize().x) / 2;
+        float offsetY = (BgObj.RectranSize().y - gameObject.RectranSize().y);
+
+        float PosOffsetX = gameObject.RectranSize().x / 2;
+        float PosOffsetY = gameObject.RectranSize().y / 2;
+
+        float LocalOffsetX = gameObject.RectranLocalPos().x * (-1);
+        float LocalOffsetY = gameObject.RectranLocalPos().y * (-1);
+
+        float RightX = MouseX - (offsetX + PosOffsetX) + LocalOffsetX;
+        float RightY = MouseY - (offsetY + PosOffsetY - 1.5f);
+
+        //Debug.Log($" 마우스 재정의 위치 확인 : ({RightX} , {RightY})");
+
+        switch (IsType)
         {
-            float MouseX = eventData.position.x / mainCanvas.scaleFactor;
-            float MouseY = eventData.position.y / mainCanvas.scaleFactor;
-            
-            //Debug.Log($" 현재 마우스 위치 확인 : ({MouseX} , {MouseY})");
-
-            float offsetX = (BgObj.RectranSize().x - gameObject.RectranSize().x) / 2;
-            float offsetY = (BgObj.RectranSize().y - gameObject.RectranSize().y);
-
-            float PosOffsetX = gameObject.RectranSize().x / 2;
-            float PosOffsetY = gameObject.RectranSize().y / 2;
-
-            float LocalOffsetX = gameObject.RectranLocalPos().x * (-1);
-            float LocalOffsetY = gameObject.RectranLocalPos().y * (-1);
-
-            float RightX = MouseX - (offsetX + PosOffsetX) + LocalOffsetX;
-            float RightY = MouseY - (offsetY + PosOffsetY - 1.5f);
-
-            //Debug.Log($" 마우스 재정의 위치 확인 : ({RightX} , {RightY})");
-
-            towerTile_.TowerBuild(new Vector2(RightX, RightY));
+            case 1:
+                Tile temp = towerTile_.GetTile(new Vector2(RightX, RightY));
+                towerobjs_.SetTower(temp.GetPos());
+                break;
         }
     }
 

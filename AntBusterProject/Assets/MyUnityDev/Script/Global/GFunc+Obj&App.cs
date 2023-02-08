@@ -98,6 +98,7 @@ public static partial class GFunc
             {
                 Result = FindChildObj(Target, objName);
                 if(Result == default || Result == null) { /* Pass */ }
+                else { return Result; }
             }
         }
 

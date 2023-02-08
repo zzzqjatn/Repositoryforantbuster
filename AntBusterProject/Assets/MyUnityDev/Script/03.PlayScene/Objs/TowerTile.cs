@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro.EditorUtilities;
 using UnityEngine;
 
@@ -11,15 +12,7 @@ public class TowerTile : MonoBehaviour
     private int TILEY;
     private float TILE_SIZE;  //정사각형
 
-    private List<Tile> researchTiles;
-
-    //private List<GameObject> GAtiles;
-    
-    public GameObject prefabObj;    // 테스트용 프리펩
-    public GameObject prefabTower;
-
-    private GameObject TileTempObj;
-    private GameObject TowerParent;
+    private List<Tile> searchTiles;
 
     void Start()
     {
@@ -27,12 +20,7 @@ public class TowerTile : MonoBehaviour
         TILEY = TileSetting.TILEY;
         TILE_SIZE = TileSetting.TILE_SIZE;
 
-        researchTiles = new List<Tile>();
-        //GAtiles = new List<GameObject>();
-
-        TileTempObj = gameObject.FindChildObj("TileTemp");
-
-        TowerParent = gameObject.FindChildObj("TowerSet");
+        searchTiles = new List<Tile>();
 
         float StartPosX = 0.0f - gameObject.RectranSize().x / 2;
         float StartPosY = 0.0f + gameObject.RectranSize().y / 2;
@@ -41,60 +29,56 @@ public class TowerTile : MonoBehaviour
         {
             for(int j = 0; j < TILEX; j++)
             {
-                //GameObject forTemp = Instantiate(prefabObj, TileTempObj.transform);
-                //if ((j + (TILEX * i)) % 2 == 0) { forTemp.GetComponent<Image>().color = Color.white; }
-                //else { forTemp.GetComponent<Image>().color = Color.black; }
-                //forTemp.RectranLocalPos(new Vector3((StartPosX + TILE_SIZE / 2) + TILE_SIZE * j,
-                //                                    (StartPosY - TILE_SIZE / 2) - TILE_SIZE * i, 0.0f));
-                //forTemp.FindChildObj("indexTxt").SetText(string.Format($"{j + (TILEX * i)}"));
-                //forTemp.name = string.Format($"TILE_{j + (TILEX * i)}");
-                //GAtiles.Add(forTemp);
-
                 Tile tempTile = new Tile();
                 tempTile.TowerInit(j + (TILEX * i),
                     (StartPosX + TILE_SIZE / 2) + TILE_SIZE * j,
                     (StartPosY - TILE_SIZE / 2) - TILE_SIZE * i, 2);
 
-                researchTiles.Add(tempTile);
+                searchTiles.Add(tempTile);
             }
         }
-
-        TileTempObj.SetActive(false);
     }
 
     void Update()
     {
         
     }
+
     public List<Tile> GetTileList()
     {
-        if(researchTiles == null || researchTiles == default)
+        if(searchTiles == null || searchTiles == default)
         {
             return null;
         }
-        return researchTiles;
+        return searchTiles;
     }
 
-    public void TowerBuild(Vector2 MousePos)
+    public Tile GetTile(Vector2 MousePos)
     {
         Tile TempTile = default;
         //4방향으로 나눠서 찾기
-        TempTile = FindSelectTile(MousePos.x, MousePos.y, TILEX / 2, TILEY / 2, TILEX, TILEY);
+        TempTile = FindSelectTile(MousePos, TILEX, TILEY);
 
         if (TempTile == null || TempTile == default) { /* Pass */}
         else
         {
-            GameObject towerTemp = Instantiate(prefabTower, TowerParent.transform);
-            Vector2 TempPos = researchTiles[TempTile.GetNum()].GetPos();
-            towerTemp.RectranLocalPos(new Vector3(TempPos.x, TempPos.y, 0.0f));
+            return TempTile;
         }
+        return TempTile;
     }
 
     //이진트리
-    public Tile FindSelectTile(float fixPosX, float fixPosY, int numX, int numY, int MaxNumX, int MaxNumY)
+    public Tile FindSelectTile(Vector2 findPos, int MaxNumX, int MaxNumY)
     {
-        int TargetNumX = default;
-        int TargetNumY = default;
+        int TargetMinNumX = 0;
+        int TargetMaxNumX = MaxNumX;
+        int TargetMinNumY = 0;
+        int TargetMaxNumY = MaxNumY;
+
+        int MiddleNum = 0;
+
+        int ResultX = 0;
+        int ResultY = 0;
 
         bool isXright = false;
         bool isYright = false;
@@ -102,49 +86,57 @@ public class TowerTile : MonoBehaviour
         Tile Result = default;
         Tile Target = default;
 
-        Target = researchTiles[numX];
-        //좌우 탐색
-        if (fixPosX < (Target.GetPos().x - TILE_SIZE / 2))   // 목표가 좌측에 있다는 뜻
+        while (TargetMinNumX <= TargetMaxNumX)
         {
-            TargetNumX = numX - (MaxNumX - numX) / 2;
-        }
-        else if ((Target.GetPos().x + TILE_SIZE / 2) < fixPosX) // 목표가 우측에 있다는 뜻
-        {
-            TargetNumX = numX + (MaxNumX - numX) / 2;
-        }
-        else // 목표가 범위 안에 있다는 뜻
-        {
-            TargetNumX = numX;
-            isXright = true;
+            MiddleNum = (TargetMinNumX + TargetMaxNumX) / 2;
+
+            Target = searchTiles[MiddleNum];
+            //좌우 탐색
+            if (findPos.x < (Target.GetPos().x - TILE_SIZE / 2))   // 목표가 좌측에 있다는 뜻
+            {
+                TargetMaxNumX = MiddleNum - 1;
+            }
+            else if ((Target.GetPos().x + TILE_SIZE / 2) < findPos.x) // 목표가 우측에 있다는 뜻
+            {
+                TargetMinNumX = MiddleNum + 1;
+            }
+            else// 목표가 범위 안에 있다는 뜻
+            {
+                ResultX = MiddleNum;
+                isXright = true;
+                break;
+            }
         }
 
-        Target = researchTiles[TILEX * numY];
-        //상하
-        if (fixPosY < (Target.GetPos().y - TILE_SIZE / 2))   // 목표가 아래쪽에 있다는 뜻
+        while (TargetMinNumY <= TargetMaxNumY)
         {
-            TargetNumY = numY - (MaxNumY - numY) / 2;
-        }
-        else if ((Target.GetPos().y + TILE_SIZE / 2) < fixPosY) // 목표가 위쪽에 있다는 뜻
-        {
-            TargetNumY = numY + (MaxNumY - numY) / 2;
-        }
-        else // 목표가 범위 안에 있다는 뜻
-        {
-            TargetNumY = numY;
-            isYright = true;
+            MiddleNum = (TargetMinNumY + TargetMaxNumY) / 2;
+
+            Target = searchTiles[TILEX * MiddleNum];
+            //상하
+            if (findPos.y < (Target.GetPos().y - TILE_SIZE / 2))   // 목표가 아래쪽에 있다는 뜻
+            {
+                TargetMinNumY = MiddleNum + 1;
+            }
+            else if ((Target.GetPos().y + TILE_SIZE / 2) < findPos.y) // 목표가 위쪽에 있다는 뜻
+            {
+                TargetMaxNumY = MiddleNum - 1;
+            }
+            else // 목표가 범위 안에 있다는 뜻
+            {
+                ResultY = MiddleNum;
+                isYright = true;
+                break;
+            }
         }
 
         if (isXright == true && isYright == true)
         {
+            Target = searchTiles[ResultX + (TILEX * ResultY)];
             Result = Target;
             return Result;
         }
-        else
-        {
-            Result = FindSelectTile(fixPosX, fixPosY, TargetNumX, TargetNumY, numX, numY);
-            if (Result == null || Result == default) { /* Pass */ }
-            else { return Result; }
-        }
+
         return Result;
     }
 }
@@ -178,9 +170,4 @@ public class Tile
     }
 
     public int GetNum() { return Number; }
-}
-
-public class Tower
-{
-
 }
