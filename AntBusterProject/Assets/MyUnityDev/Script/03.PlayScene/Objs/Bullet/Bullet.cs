@@ -20,14 +20,14 @@ public class Bullet : MonoBehaviour
         AutoDie();
     }
 
-    public void bulletFire(Vector2 pos_, Vector2 dir_, int speed, int Damage_, float Distance_)
+    public void bulletFire(Vector2 pos_, Vector2 dir_, float speed, int Damage_, float Distance_)
     {
         if(bulletRig == null || bulletRig == default)
         { bulletRig = gameObject.GetComponent<Rigidbody2D>(); }
 
         gameObject.RectranLocalPos(new Vector3(pos_.x, pos_.y, 0.0f));
         Dir = dir_;
-        bulletRig.velocity = new Vector2(Dir.x * speed * Time.deltaTime, Dir.y * speed * Time.deltaTime);
+        bulletRig.velocity = new Vector2(Dir.x * speed, Dir.y * speed);
         Damage = Damage_;
 
         //종료거리          (시작지점)                      

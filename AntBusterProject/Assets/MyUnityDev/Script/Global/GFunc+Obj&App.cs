@@ -6,12 +6,46 @@ using UnityEngine;
 
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.U2D;
+using Unity.VisualScripting;
 
 public static partial class GFunc
 {
     public const string GAMEOBJ_ROOT_NAME = "GameObjs";
-    public const string TileListObj_NAME = "TowerTile";
+    public const string TileListObj_NAME = "InGameMapTile";
 
+    public static SpriteAtlas allsprite;
+
+    public static void OutImage(this GameObject obj)
+    {
+        Image tempImage = default;
+        tempImage = obj.GetComponent<Image>();
+
+        tempImage.sprite = null;
+
+        Color tempAlpha = tempImage.color;
+        tempAlpha.a = 0.0f;
+        tempImage.color = tempAlpha;
+    }
+    public static void SetImage(this GameObject obj, string imageName)
+    {
+        if (allsprite == null || allsprite == default)
+        {
+            allsprite = Resources.Load<SpriteAtlas>("SpriteAtlas/SpriteAtlas");
+        }
+        Image tempImage = default;
+        tempImage = obj.GetComponent<Image>();
+
+        tempImage.sprite = allsprite.GetSprite(imageName);
+
+        if(tempImage.color.a == 0.0f)
+        {
+            Color tempAlpha = tempImage.color;
+            tempAlpha.a = 1.0f;
+            tempImage.color = tempAlpha;
+        }
+    }
 
     public static void SetText(this GameObject obj,string text)
     {

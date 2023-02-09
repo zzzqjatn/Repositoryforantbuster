@@ -41,7 +41,7 @@ public class BulletObjPool : MonoBehaviour
             if (bulletPool[i].activeSelf == false)
             {
                 bulletPool[bulletindex].SetActive(true);
-                bulletPool[bulletindex].GetComponent<Bullet>().bulletFire(pos_, dir_, speed_, damage_, distance_);
+                bulletPool[bulletindex].GetComponent<Bullet>().bulletFire(pos_, dir_, speed_ * Time.deltaTime, damage_, distance_);
                 bulletindex++;
                 if (bulletindex >= bulletPool.Count) bulletindex = 0;
                 break;
